@@ -17,6 +17,7 @@
       background-color: #1a1a1a;
       color: #e5e7eb;
       overflow-x: hidden;
+      position: relative;
     }
     .parallax {
       background-attachment: fixed;
@@ -32,7 +33,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       z-index: 1;
     }
     .parallax > * {
@@ -40,21 +41,23 @@
       z-index: 2;
     }
     .card {
-      background: rgba(31, 41, 55, 0.9);
+      background: rgba(31, 41, 55, 0.95);
       border-radius: 1rem;
       padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(59, 130, 246, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 25px rgba(59, 130, 246, 0.4);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
     }
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 30px rgba(59, 130, 246, 0.5);
+      transform: translateY(-12px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 130, 246, 0.6);
+      background: rgba(31, 41, 55, 1);
     }
     .progress-bar {
       background: linear-gradient(90deg, #3b82f6, #60a5fa);
       height: 100%;
       border-radius: 9999px;
-      transition: width 1s ease-in-out;
+      transition: width 1.2s ease-in-out;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
     }
     .glow-effect {
       position: relative;
@@ -64,30 +67,34 @@
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
+      left: -150%;
+      width: 150%;
       height: 100%;
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(59, 130, 246, 0.2),
+        rgba(59, 130, 246, 0.3),
         transparent
       );
-      transition: 0.6s;
+      transition: left 0.8s ease;
     }
     .glow-effect:hover::before {
-      left: 100%;
+      left: 150%;
     }
     .navbar {
-      backdrop-filter: blur(10px);
-      background: rgba(17, 24, 39, 0.8);
+      backdrop-filter: blur(12px);
+      background: rgba(17, 24, 39, 0.85);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .navbar a:hover {
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
     }
     .project-card {
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .project-card.hidden {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
       display: none;
     }
     .back-to-top {
@@ -100,13 +107,36 @@
       color: white;
       display: none;
       z-index: 1000;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     .back-to-top:hover {
       background: #2563eb;
+      transform: scale(1.1);
+    }
+    .filter-btn {
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .filter-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+    /* Spectrum Background */
+    #spectrum-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.3;
     }
   </style>
 </head>
 <body>
+  <!-- Spectrum Background -->
+  <canvas id="spectrum-bg"></canvas>
+
   <!-- Navbar -->
   <nav class="navbar fixed top-0 left-0 w-full z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -185,7 +215,7 @@
     <h2 class="text-4xl font-bold text-center mb-12 text-white">Projects</h2>
     <div class="flex justify-center mb-8 flex-wrap gap-4">
       <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn" data-category="all">All</button>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn" data-category="ai">AI</button>
+      <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn"ret-btn" data-category="ai">AI</button>
       <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn" data-category="web">Web</button>
     </div>
     <div class="project-container grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -216,44 +246,108 @@
     <div class="card glow-effect max-w-lg mx-auto">
       <p class="text-center mb-4">Interested in collaborating or have a project in mind? Reach out!</p>
       <div class="space-y-4">
-        <p><strong>Email:</strong> <a href="mailto:akashselvadoss@example.com" class="text-blue-400 hover:underline">akashselvadoss@example.com</a></p>
-        <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/akashselvadoss" class="text-blue-400 hover:underline">linkedin.com/in/akashselvadoss</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/akashselvadoss" class="text-blue-400 hover:underline">github.com/akashselvadoss</a></p>
+        <p><strong>Email:</strong> <a href="mailto:akashdoss996@gmail.com" class="text-blue-400 hover:underline">akashdoss996@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/akash-selvadoss-n-542765252/" class="text-blue-400 hover:underline">linkedin.com/in/akash-selvadoss-n-542765252</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/akashdoss" class="text-blue-400 hover:underline">github.com/akashdoss</a></p>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 py-6 text-center">
-    <p class="text-gray-400">&copy; 2025 Akash Selvadoss N. All rights reserved.</p>
+    <p class="text-gray-400">© 2025 Akash Selvadoss N. All rights reserved.</p>
   </footer>
 
   <!-- Scripts -->
   <script>
+    // Spectrum Background Animation
+    const canvas = document.getElementById('spectrum-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let time = 0;
+    const colors = [
+      'rgba(59, 130, 246, 0.5)',  // Blue
+      'rgba(236, 72, 153, 0.5)', // Pink
+      'rgba(16, 185, 129, 0.5)', // Green
+      'rgba(251, 191, 36, 0.5)', // Yellow
+      'rgba(239, 68, 68, 0.5)'   // Red
+    ];
+
+    function drawSpectrum() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(canvas.width, canvas.height) * 0.4;
+      const segments = 50;
+      const angleStep = (Math.PI * 2) / segments;
+
+      for (let i = 0; i < segments; i++) {
+        const angle = i * angleStep + time;
+        const colorIndex = Math.floor((i + time * 10) % colors.length);
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, angle, angle + angleStep);
+        ctx.fillStyle = colors[colorIndex];
+        ctx.fill();
+      }
+
+      time += 0.02; // Controls rotation speed
+      requestAnimationFrame(drawSpectrum);
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    drawSpectrum();
+
     // ScrollReveal Animations
     ScrollReveal().reveal('.card', {
       delay: 200,
-      distance: '20px',
+      distance: '30px',
       origin: 'bottom',
-      duration: 800,
-      easing: 'ease-out'
+      duration: 1000,
+      easing: 'ease-out',
+      interval: 150
     });
 
     ScrollReveal().reveal('.project-card', {
       delay: 200,
-      distance: '20px',
+      distance: '30px',
       origin: 'bottom',
-      duration: 800,
+      duration: 1000,
       easing: 'ease-out',
-      interval: 100
+      interval: 150
     });
 
     // GSAP Animations for Home Section
     gsap.from('.animate__animated', {
       opacity: 0,
-      y: 50,
-      duration: 1,
-      stagger: 0.2
+      y: 60,
+      duration: 1.2,
+      stagger: 0.3,
+      ease: 'power2.out'
+    });
+
+    // GSAP Hover Animation for Cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          scale: 1.02,
+          duration: 0.3,
+          ease: 'power1.out'
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          scale: 1,
+          duration: 0.3,
+          ease: 'power1.out'
+        });
+      });
     });
 
     // Project Filter
@@ -267,8 +361,15 @@
           const cardCategories = card.getAttribute('data-category').split(' ');
           if (category === 'all' || cardCategories.includes(category)) {
             card.classList.remove('hidden');
+            gsap.to(card, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
           } else {
-            card.classList.add('hidden');
+            gsap.to(card, {
+              opacity: 0,
+              y: 30,
+              duration: 0.6,
+              ease: 'power2.out',
+              onComplete: () => card.classList.add('hidden')
+            });
           }
         });
       });
@@ -279,8 +380,13 @@
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
         backToTop.style.display = 'block';
+        gsap.to(backToTop, { opacity: 1, duration: 0.3 });
       } else {
-        backToTop.style.display = 'none';
+        gsap.to(backToTop, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => (backToTop.style.display = 'none')
+        });
       }
     });
 
