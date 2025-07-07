@@ -1,270 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akash Selvadoss N - Portfolio</title>
-  <!-- Tailwind CSS CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akash Selvadoss N - Backend Developer Portfolio</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- ScrollReveal -->
   <script src="https://unpkg.com/scrollreveal"></script>
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
+    /* Custom Styles */
     body {
-      margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      color: #e0e0e0;
-      transition: background 0.3s ease, color 0.3s ease;
+      background-color: #1a1a1a;
+      color: #e5e7eb;
       overflow-x: hidden;
     }
-    /* Light Mode */
-    body.light-mode {
-      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-      color: #1f2937;
-    }
-    body.light-mode .card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    body.light-mode nav {
-      background: rgba(255, 255, 255, 0.8);
-    }
-    body.light-mode a {
-      color: #1f2937;
-    }
-    body.light-mode a:hover {
-      color: #3b82f6;
-    }
-    body.light-mode #typing-text {
-      color: #1f2937;
-    }
-    /* Light Effect for Glow */
-    .glow-effect {
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .glow-effect:hover {
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
-      transform: translateY(-5px) scale(1.05);
-    }
-    /* Particle Background */
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: transparent;
-    }
-    /* Parallax Background */
     .parallax {
       background-attachment: fixed;
       background-size: cover;
       background-position: center;
+      position: relative;
+      padding: 4rem 1rem;
     }
-    /* Splash Screen */
-    #splash-screen {
-      position: fixed;
+    .parallax::before {
+      content: '';
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #1a1a2e, #3b82f6);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      transition: opacity 1s ease;
-    }
-    #splash-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid #3b82f6;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    /* Section Styling */
-    section {
-      padding: 4rem 2rem;
-      position: relative;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
       z-index: 1;
     }
-    /* Card Styling */
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s ease;
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    /* Progress Bar */
-    .progress-bar {
-      height: 8px;
-      background: #3b82f6;
-      border-radius: 4px;
-      transition: width 1s ease;
-    }
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #1a1a2e;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #3b82f6;
-      border-radius: 4px;
-    }
-    /* Typing Animation */
-    .typing-text {
+    .parallax > * {
       position: relative;
-      z-index: 10;
+      z-index: 2;
     }
-    .typing-text::after {
-      content: '|';
-      animation: blink 1s infinite;
-      font-weight: bold;
-      color: #3b82f6;
+    .card {
+      background: rgba(31, 41, 55, 0.9);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(59, 130, 246, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    @keyframes blink {
-      50% { opacity: 0; }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 30px rgba(59, 130, 246, 0.5);
     }
-    /* Back to Top Button */
-    #back-to-top {
+    .progress-bar {
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 1s ease-in-out;
+    }
+    .glow-effect {
+      position: relative;
+      overflow: hidden;
+    }
+    .glow-effect::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(59, 130, 246, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    .glow-effect:hover::before {
+      left: 100%;
+    }
+    .navbar {
+      backdrop-filter: blur(10px);
+      background: rgba(17, 24, 39, 0.8);
+    }
+    .project-card {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .project-card.hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      display: none;
+    }
+    .back-to-top {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
       background: #3b82f6;
-      color: white;
       padding: 0.75rem;
       border-radius: 50%;
+      color: white;
       display: none;
-      transition: opacity 0.3s ease;
+      z-index: 1000;
     }
-    #back-to-top:hover {
+    .back-to-top:hover {
       background: #2563eb;
-    }
-    /* Project Section */
-    .project-container {
-      max-width: 100%;
-      margin: 0 auto;
-      display: grid;
-      gap: 1.5rem;
-    }
-    .project-card {
-      display: block;
-    }
-    /* Filter Buttons */
-    .filter-btn {
-      min-width: 100px;
-      text-align: center;
-    }
-    /* Certification Description */
-    .cert-description {
-      font-size: 0.9rem;
-      color: #a0a0a0;
-      margin-top: 0.5rem;
-    }
-    body.light-mode .cert-description {
-      color: #4b5563;
-    }
-    /* Responsive Adjustments */
-    @media (max-width: 640px) {
-      section {
-        padding: 2rem 1rem;
-      }
-      .card {
-        padding: 1rem;
-        min-height: 200px;
-      }
-      .parallax {
-        background-attachment: scroll;
-      }
-      .filter-btn {
-        min-width: 80px;
-        font-size: 0.9rem;
-      }
-      #splash-screen h1 {
-        font-size: 2rem;
-      }
-      #splash-screen p {
-        font-size: 1rem;
-      }
-      #typing-text {
-        font-size: 1.5rem !important;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Splash Screen -->
-  <div id="splash-screen">
-    <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4" id="splash-title">Welcome to Akash Selvadoss N's Portfolio</h1>
-    <p class="text-lg sm:text-xl text-gray-300 mb-6" id="splash-tagline">Explore AI & Innovation</p>
-    <div class="spinner"></div>
-  </div>
-
-  <!-- Particle Background -->
-  <div id="particles-js"></div>
-
   <!-- Navbar -->
-  <nav class="fixed top-0 w-full bg-black/50 backdrop-blur-md z-50">
+  <nav class="navbar fixed top-0 left-0 w-full z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
       <h1 class="text-2xl font-bold text-white">Akash Selvadoss N</h1>
-      <div class="flex items-center space-x-6">
-        <ul class="flex space-x-6">
-          <li><a href="#home" class="text-white hover:text-blue-400 transition">Home</a></li>
-          <li><a href="#about" class="text-white hover:text-blue-400 transition">About</a></li>
-          <li><a href="#projects" class="text-white hover:text-blue-400 transition">Projects</a></li>
-          <li><a href="#contact" class="text-white hover:text-blue-400 transition">Contact</a></li>
-        </ul>
-        <button id="theme-toggle" class="text-white hover:text-blue-400">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-        </button>
+      <div class="space-x-4">
+        <a href="#home" class="text-white hover:text-blue-400 transition">Home</a>
+        <a href="#about" class="text-white hover:text-blue-400 transition">About</a>
+        <a href="#projects" class="text-white hover:text-blue-400 transition">Projects</a>
+        <a href="#contact" class="text-white hover:text-blue-400 transition">Contact</a>
       </div>
     </div>
   </nav>
 
   <!-- Back to Top Button -->
-  <button id="back-to-top" class="glow-effect">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-  </button>
+  <a href="#home" class="back-to-top" id="backToTop">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </a>
 
   <!-- Home Section -->
   <section id="home" class="min-h-screen flex items-center justify-center parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?tech')">
     <div class="text-center">
-      <h1 class="text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 animate-pulse">
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 animate__animated animate__fadeIn">
         Akash Selvadoss N
       </h1>
-      <p class="mt-4 text-2xl sm:text-3xl text-white font-bold typing-text" id="typing-text">Loading...</p>
-      <a href="#projects" class="mt-6 inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect">
+      <p class="text-xl md:text-2xl text-gray-300 mb-8">
+        Backend Developer | AI & Data Science Enthusiast
+      </p>
+      <a href="#projects" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect">
         View My Work
-      </a>
-      <a href="/path/to/Akash_Selvadoss_N_Resume.pdf" download class="mt-4 inline-block px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition glow-effect">
-        Download Resume
       </a>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="max-w-7xl mx-auto parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?abstract')">
+  <section id="about" class="max-w-7xl mx-auto py-16 px-4 parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?abstract')">
     <h2 class="text-4xl font-bold text-center mb-12 text-white">About Me</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="card glow-effect">
@@ -276,233 +155,136 @@
       <div class="card glow-effect">
         <h3 class="text-2xl font-semibold mb-4">Skills</h3>
         <div class="space-y-4">
-          <div>
-            <p>Python</p>
-            <div class="w-full bg-gray-700 rounded-full h-2"><div class="progress-bar" style="width: 90%"></div></div>
-          </div>
-          <div>
-            <p>SQL</p>
-            <div class="w-full bg-gray-700 rounded-full h-2"><div class="progress-bar" style="width: 85%"></div></div>
-          </div>
-          <div>
-            <p>HTML</p>
-            <div class="w-full bg-gray-700 rounded-full h-2"><div class="progress-bar" style="width: 80%"></div></div>
-          </div>
-          <div>
-            <p>Figma</p>
-            <div class="w-full bg-gray-700 rounded-full h-2"><div class="progress-bar" style="width: 75%"></div></div>
-          </div>
-          <div>
-            <p>Power BI</p>
-            <div class="w-full bg-gray-700 rounded-full h-2"><div class="progress-bar" style="width: 70%"></div></div>
-          </div>
+          <div><p>Python</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 90%"></div></div></div>
+          <div><p>Java</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 75%"></div></div></div>
+          <div><p>Django</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 80%"></div></div></div>
+          <div><p>React JS</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 78%"></div></div></div>
+          <div><p>SQL</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 85%"></div></div></div>
+          <div><p>HTML</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 80%"></div></div></div>
+          <div><p>Figma</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 75%"></div></div></div>
+          <div><p>Power BI</p><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="progress-bar" style="width: 70%"></div></div></div>
         </div>
       </div>
     </div>
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="card glow-effect">
         <h3 class="text-2xl font-semibold mb-4">Internship</h3>
-        <p><strong>Software Intern</strong><br>Hudsmer Business Solution<br>Feb 2025 - Present</p>
-        <p class="mt-2">Worked on backend development using Python, optimized APIs, and collaborated on scalable solutions.</p>
+        <p><strong>Software Intern</strong><br>Hudsmer Business Solution<br>Feb 2025 - May 2025</p>
+        <p class="mt-2">Developed and optimized Django REST APIs, focusing on scalability and maintainability. Contributed to backend solutions for client projects, enhancing performance and user experience.</p>
       </div>
       <div class="card glow-effect">
         <h3 class="text-2xl font-semibold mb-4">Internship</h3>
         <p><strong>Project Engineer</strong><br>Shanmuga AI Technologies Private Limited<br>Oct 2024 - Feb 2025</p>
-        <p class="mt-2">Contributed to AI, data science, and machine learning projects to develop innovative, data-driven solutions. Gained hands-on experience in designing predictive models, optimizing data processes, and analyzing insights for actionable results.</p>
+        <p class="mt-2">Designed predictive models and optimized data processes for AI and data science projects. Delivered actionable insights through machine learning solutions, driving innovation and efficiency.</p>
       </div>
     </div>
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="max-w-7xl mx-auto parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?code')">
+  <section id="projects" class="max-w-7xl mx-auto py-16 px-4 parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?code')">
     <h2 class="text-4xl font-bold text-center mb-12 text-white">Projects</h2>
     <div class="flex justify-center mb-8 flex-wrap gap-4">
       <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn" data-category="all">All</button>
       <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn" data-category="ai">AI</button>
       <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect filter-btn" data-category="web">Web</button>
     </div>
-    <div class="project-container">
-      <div class="project-card" data-category="ai">
-        <div class="card glow-effect">
-          <h3 class="text-2xl font-semibold mb-4">Medobot: Your Virtual Medical Assistant</h3>
-          <p class="text-base leading-relaxed">Designed an interactive chatbot using Tesseract OCR, Gemini API, and Google Speech Recognition to extract medicine details from text, voice, or images. Supports Tamil translations and suggests nearby hospitals. Deployed on Streamlit with real-time voice and multi-language features.</p>
-        </div>
-      </div>
+    <div class="project-container grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="project-card" data-category="ai web">
         <div class="card glow-effect">
-          <h3 class="text-2xl font-semibold mb-4">Conversational AI with Visual Creativity</h3>
-          <p class="text-base leading-relaxed">Built an AI-powered chatbot with a text-to-image generator using Streamlit, Gemini API, and Hugging Face. Deployed on Render for seamless conversations and AI-generated visuals.</p>
+          <h3 class="text-2xl font-semibold mb-4">Medobot: Your Virtual Medical Assistant</h3>
+          <p class="text-base leading-relaxed mb-4">
+            An AI-powered medical assistant built with React.js and Flask, leveraging SambaNova API and LLaMA model for natural language processing. Features text-to-image generation using Nebius API for enhanced user interaction.
+          </p>
+          <a href="#" class="text-blue-400 hover:underline">View Project</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Certifications Section -->
-  <section id="certifications" class="max-w-7xl mx-auto parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?data')">
-    <h2 class="text-4xl font-bold text-center mb-12 text-white">Certifications</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="card glow-effect">
-        <p>Data Analytics and Visualization Job Simulation - June 2024</p>
-        <p class="cert-description">Completed a simulation focused on data analysis and visualization techniques using tools like Power BI.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Machine Learning - Dimensionality Reduction - June 2024</p>
-        <p class="cert-description">Mastered techniques like PCA and t-SNE for reducing data dimensions in machine learning models.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Data Analysis with Python - August 2024</p>
-        <p class="cert-description">Learned advanced data analysis using Python libraries like Pandas, NumPy, and Matplotlib.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Data Science For Engineers - NPTEL</p>
-        <p class="cert-description">Gained insights into data science applications in engineering, covering statistics and ML.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Data Base Management System - May 2024</p>
-        <p class="cert-description">Developed skills in designing and managing relational databases using SQL.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Block Chain and its Applications - NPTEL</p>
-        <p class="cert-description">Explored blockchain technology and its applications in secure data management.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Database Management System - SPRINGBOARD</p>
-        <p class="cert-description">Enhanced expertise in DBMS concepts, including query optimization and schema design.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>E-Business - NPTEL</p>
-        <p class="cert-description">Studied e-commerce frameworks and digital business strategies.</p>
-      </div>
-      <div class="card glow-effect">
-        <p>Cloud Computing - NPTEL</p>
-        <p class="cert-description">Learned cloud service models and deployment strategies using platforms like AWS.</p>
+      <div class="project-card" data-category="web">
+        <div class="card glow-effect">
+          <h3 class="text-2xl font-semibold mb-4">Mobile App Synchronization API</h3>
+          <p class="text-base leading-relaxed mb-4">
+            A Django REST API enabling real-time note synchronization for mobile applications. Utilizes timestamp-based tracking for efficient data retrieval and synchronization.
+          </p>
+          <a href="#" class="text-blue-400 hover:underline">View Project</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="max-w-7xl mx-auto parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?connect')">
+  <section id="contact" class="max-w-7xl mx-auto py-16 px-4 parallax" style="background-image: url('https://source.unsplash.com/random/1920x1080/?contact')">
     <h2 class="text-4xl font-bold text-center mb-12 text-white">Get in Touch</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="card glow-effect">
-        <h3 class="text-2xl font-semibold mb-4">Contact Info</h3>
-        <p class="text-lg">Email: <a href="mailto:akashdoss996@gmail.com" class="text-blue-400 hover:underline">akashdoss996@gmail.com</a></p>
-        <p class="mt-2 text-lg">Phone: <a href="tel:+9188388****7" class="text-blue-400 hover:underline">+91 8838866***</a></p>
-        <p class="mt-2 text-lg">LinkedIn: <a href="https://linkedin.com/in/akashdoss" class="text-blue-400 hover:underline">akashdoss</a></p>
-        <p class="mt-2 text-lg">GitHub: <a href="https://github.com/akashdoss" class="text-blue-400 hover:underline">akashdoss</a></p>
-      </div>
-      <div class="card glow-effect">
-        <h3 class="text-2xl font-semibold mb-4">Send a Message</h3>
-        <div id="contact-form">
-          <div class="space-y-4">
-            <input type="text" id="name" placeholder="Your Name" class="w-full p-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <input type="email" id="email" placeholder="Your Email" class="w-full p-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <textarea id="message" placeholder="Your Message" rows="4" class="w-full p-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
-            <button id="submit-btn" class="w-full px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition glow-effect">Send</button>
-          </div>
-          <p id="form-message" class="mt-4 text-green-400 hidden">Message sent successfully!</p>
-        </div>
+    <div class="card glow-effect max-w-lg mx-auto">
+      <p class="text-center mb-4">Interested in collaborating or have a project in mind? Reach out!</p>
+      <div class="space-y-4">
+        <p><strong>Email:</strong> <a href="mailto:akashselvadoss@example.com" class="text-blue-400 hover:underline">akashselvadoss@example.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/akashselvadoss" class="text-blue-400 hover:underline">linkedin.com/in/akashselvadoss</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/akashselvadoss" class="text-blue-400 hover:underline">github.com/akashselvadoss</a></p>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-6 text-center text-gray-400">
-    <p>Designed with ❤️ by Akash Selvadoss N</p>
+  <footer class="bg-gray-900 py-6 text-center">
+    <p class="text-gray-400">&copy; 2025 Akash Selvadoss N. All rights reserved.</p>
   </footer>
 
   <!-- Scripts -->
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    // Splash Screen Animation
-    gsap.from("#splash-title", {
+    // ScrollReveal Animations
+    ScrollReveal().reveal('.card', {
+      delay: 200,
+      distance: '20px',
+      origin: 'bottom',
+      duration: 800,
+      easing: 'ease-out'
+    });
+
+    ScrollReveal().reveal('.project-card', {
+      delay: 200,
+      distance: '20px',
+      origin: 'bottom',
+      duration: 800,
+      easing: 'ease-out',
+      interval: 100
+    });
+
+    // GSAP Animations for Home Section
+    gsap.from('.animate__animated', {
       opacity: 0,
       y: 50,
       duration: 1,
-      ease: "power3.out"
-    });
-    gsap.from("#splash-tagline", {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      delay: 0.5,
-      ease: "power3.out"
-    });
-    setTimeout(() => {
-      const splash = document.getElementById('splash-screen');
-      splash.classList.add('hidden');
-    }, 3000);
-
-    // Initialize Particles.js
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: '#3b82f6' },
-        shape: { type: 'circle' },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: '#3b82f6', opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
-      },
-      interactivity: {
-        detect_on: 'canvas',
-        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-      },
-      retina_detect: true
+      stagger: 0.2
     });
 
-    // Typing Animation
-    document.addEventListener('DOMContentLoaded', () => {
-      const typingText = document.getElementById('typing-text');
-      const phrases = ['AI & Data Science Enthusiast', 'Developer', 'Innovator'];
-      let phraseIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
+    // Project Filter
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
 
-      function type() {
-        const currentPhrase = phrases[phraseIndex];
-        if (!isDeleting && charIndex <= currentPhrase.length) {
-          typingText.textContent = currentPhrase.substring(0, charIndex);
-          charIndex++;
-        } else if (isDeleting && charIndex >= 0) {
-          typingText.textContent = currentPhrase.substring(0, charIndex);
-          charIndex--;
-        }
-        if (charIndex > currentPhrase.length) {
-          isDeleting = true;
-          setTimeout(type, 1000);
-        } else if (isDeleting && charIndex < 0) {
-          isDeleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          setTimeout(type, 500);
-        } else {
-          setTimeout(type, isDeleting ? 50 : 100);
-        }
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+        projectCards.forEach(card => {
+          const cardCategories = card.getAttribute('data-category').split(' ');
+          if (category === 'all' || cardCategories.includes(category)) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.style.display = 'block';
+      } else {
+        backToTop.style.display = 'none';
       }
-
-      // Start typing animation after splash screen
-      setTimeout(type, 3000);
     });
 
-    // Theme Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      const isLightMode = document.body.classList.contains('light-mode');
-      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-      themeToggle.innerHTML = isLightMode
-        ? '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>'
-        : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>';
-    });
-    // Load Saved Theme
-    if (localStorage.getItem('theme') === 'light') {
-      document.body.classList.add('light-mode');
-      themeToggle.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>';
-    }
-
-    // Smooth Scroll
+    // Smooth Scroll for Navbar Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -510,54 +292,6 @@
           behavior: 'smooth'
         });
       });
-    });
-
-    // Back to Top Button
-    const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // ScrollReveal Animations
-    ScrollReveal().reveal('section', {
-      delay: 200,
-      distance: '50px',
-      origin: 'bottom',
-      duration: 1000,
-      easing: 'ease-in-out'
-    });
-
-    // Project Filtering
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const category = button.getAttribute('data-category');
-        projectCards.forEach(card => {
-          const cardCategories = card.getAttribute('data-category').split(' ');
-          card.style.display = category === 'all' || cardCategories.includes(category) ? 'block' : 'none';
-        });
-      });
-    });
-
-    // Contact Form Validation
-    const contactForm = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const formMessage = document.getElementById('form-message');
-    submitBtn.addEventListener('click', () => {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-      if (name && email && message) {
-        formMessage.classList.remove('hidden');
-        contactForm.reset();
-        setTimeout(() => formMessage.classList.add('hidden'), 3000);
-      } else {
-        alert('Please fill in all fields.');
-      }
     });
   </script>
 </body>
